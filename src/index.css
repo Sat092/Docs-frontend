@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+   font-family:Arial, Helvetica, sans-serif;
+}
+::selection{
+   color: rgb(243, 194, 35);
+} 
