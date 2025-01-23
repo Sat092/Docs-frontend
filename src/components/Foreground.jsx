@@ -1,82 +1,73 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Card from './Card'
 
 const Foreground = () => {
-    const ref=useRef(null);
-    const data=[
-        {
-            desc:"This is a card.",
-            filesize:".9mb",
-            close:true,
-            tag:{
-                isOpen:true,
-                tagTitle:"Download Now..",
-                tagColor:"green"
-            },
-        },
-        {
-            desc:"This is a card.",
-            filesize:".9mb",
-            close:true,
-            tag:{
-                isOpen:true,
-                tagTitle:"Download Now..",
-                tagColor:"blue"
-            },
-        },
-        {
-            desc:"This is a card.",
-            filesize:".9mb",
-            close:false,
-            tag:{
-                isOpen:true,
-                tagTitle:"Download Now..",
-                tagColor:"green"
-            },
-        },
-        {
-            desc:"This is a card.",
-            filesize:".9mb",
-            close:false,
-            tag:{
-                isOpen:true,
-                tagTitle:"Download Now..",
-                tagColor:"blue"
-            },
-        },
-        {
-            desc:"This is a card.",
-            filesize:".9mb",
-            close:false,
-            tag:{
-                isOpen:true,
-                tagTitle:"Download Now..",
-                tagColor:"blue"
-            },
-        },
-        {
-            desc:"This is a card.",
-            filesize:".9mb",
-            close:false,
-            tag:{
-                isOpen:true,
-                tagTitle:"Download Now..",
-                tagColor:"green"
-            },
-        },
-    ]
-  return (
-    <>
-    <div ref={ref} className='w-full h-full  fixed z-[3] top-0 left-0  flex gap-5 flex-wrap p-5'>
-        
-        {data.map((items,index)=>(
-            <Card data={items} reference={ref}/>
-        ))}
-    </div>
+    const ref = useRef(null);
+    const [cards, setCards] = useState([]);
+    const [task, setTask] = useState("");
+
+    var rn=Math.floor(Math.random * 2)
+    if(rn===0){
+        setnum("green")
+        setopen(true)
+    }
+    else{
+        setnum("blue")
+        setopen(false)
+    }
+
+    const [num, setnum] = useState()
+    const [open, setopen] = useState()
 
 
-    </>
-  )
+    useEffect(() => {
+        const savedCards = JSON.parse(localStorage.getItem("cards"));
+        if (savedCards) {
+            setCards(savedCards);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("cards", JSON.stringify(cards));
+    }, [cards]);
+
+    const addCard = () => {
+        if (task.trim() === "") return;
+        const newCard = {
+            desc: task,
+            filesize: ".9mb",
+            close:open,
+            tag: {
+                isOpen: true,
+                tagTitle: "Download Now..",
+                tagColor: num
+            },
+        };
+        setCards([...cards, newCard]);
+        setTask("");
+    };
+
+    return (
+        <>
+            <div ref={ref} className='w-full h-full fixed z-[3] top-0 left-0 flex gap-5 flex-wrap p-5 overflow-scroll'>
+                {cards.map((items, index) => (
+                    <Card key={index} data={items} reference={ref} />
+                ))}
+                <div className='flex flex-col items-center'>
+                    <input
+                        type="text"
+                        value={task}
+                        onChange={(e) => setTask(e.target.value)}
+                        placeholder="Enter your task"
+                        className='mb-5 p-2 border border-gray-300 rounded text-black'
+                    />
+                    <button onClick={addCard} className='w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center'>
+                        +
+                    </button>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default Foreground
