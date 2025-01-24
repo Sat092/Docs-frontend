@@ -6,9 +6,8 @@ const Foreground = () => {
     const [cards, setCards] = useState([]);
     const [task, setTask] = useState("");
     
-    const [num, setnum] = useState("green")
-    const [open, setopen] = useState(true)
-
+    const [num, setnum] = useState("gree")
+    const [open, setopen] = useState("t")
 
     useEffect(() => {
         const savedCards = JSON.parse(localStorage.getItem("cards"));
@@ -16,12 +15,21 @@ const Foreground = () => {
             setCards(savedCards);
         }
     }, []);
-
     useEffect(() => {
         localStorage.setItem("cards", JSON.stringify(cards));
     }, [cards]);
 
+
+    var rn=Math.floor(Math.random()*2)
     const addCard = () => {
+        if(rn===0){
+            setnum("blue")
+            setopen(true)
+        }
+        else{
+            setnum("green")
+            setopen(false)
+        }
         if (task.trim() === "") return;
         const newCard = {
             desc: task,
@@ -39,7 +47,7 @@ const Foreground = () => {
 
     return (
         <>
-            <div ref={ref} className='w-full h-full fixed z-[3] top-0 left-0 flex gap-5 flex-wrap p-5 overflow-scroll'>
+            <div ref={ref} className=' main w-full h-full fixed z-[3] top-0 left-0 flex gap-5 flex-wrap p-5 '>
                 {cards.map((items, index) => (
                     <Card key={index} data={items} reference={ref}  />
                 ))}

@@ -13,3 +13,10 @@
 ::selection{
    color: rgb(243, 194, 35);
 } 
+
+@media only screen and(max-width:720px) {
+   .main{
+      max-height: 90%;
+   }
+   
+}
