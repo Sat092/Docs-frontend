@@ -12,7 +12,7 @@ const Card = ({data,reference}) => {
 
         <span className='bg-zinc-400 rounded-[50%] w-7 h-7 pl-[6px] pb-[4px] mb-[14px] flex items-center justify-center '>
 
-          {data.close ? (<p className='z-[5] font-semibold text-xs   mr-2 '>💬</p>) :(<p className='z-[5] font-semibold text-xs   mr-2 '>📥</p>)}
+          {data.close ? (<p className='z-[5] font-semibold text-xs  mr-1 mt-1 '>💬</p>) :(<p className='z-[5] font-semibold text-xs   mr-2 '>📥</p>)}
 
           </span>
         </div>

@@ -5,19 +5,9 @@ const Foreground = () => {
     const ref = useRef(null);
     const [cards, setCards] = useState([]);
     const [task, setTask] = useState("");
-
-    var rn=Math.floor(Math.random * 2)
-    if(rn===0){
-        setnum("green")
-        setopen(true)
-    }
-    else{
-        setnum("blue")
-        setopen(false)
-    }
-
-    const [num, setnum] = useState()
-    const [open, setopen] = useState()
+    
+    const [num, setnum] = useState("green")
+    const [open, setopen] = useState(true)
 
 
     useEffect(() => {
@@ -51,7 +41,7 @@ const Foreground = () => {
         <>
             <div ref={ref} className='w-full h-full fixed z-[3] top-0 left-0 flex gap-5 flex-wrap p-5 overflow-scroll'>
                 {cards.map((items, index) => (
-                    <Card key={index} data={items} reference={ref} />
+                    <Card key={index} data={items} reference={ref}  />
                 ))}
                 <div className='flex flex-col items-center'>
                     <input
